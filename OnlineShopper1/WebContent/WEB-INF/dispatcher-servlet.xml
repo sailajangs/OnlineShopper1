@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+                          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+                         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd" 
+xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc" 
+xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://www.springframework.org/schema/beans">
+
+	<!-- Specifying base package of the Components like Controller, Service, DAO -->
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.app.src"/>
+	<!-- mapping static resources -->
+	<mvc:resources mapping="/resources/images/**" location="/resources/images/"/>
+	<mvc:resources mapping="/resources/CSS/**" location="/resources/CSS/"/>
+	<mvc:resources mapping="/resources/js/**" location="/resources/js/"/>
+
+	<!-- Getting Database properties -->
+	    <context:property-placeholder location="classpath:application.properties"/>
+		
+
+    <!-- View Resolver -->
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property value="/WEB-INF/jsp/" name="prefix"/>
+		<property value=".jsp" name="suffix"/>
+	</bean>
+
+    <!-- DataSource -->
+
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		<property value="${database.driver}" name="driverClassName"/>
+		<property value="${database.url}" name="url"/>
+		<property value="${database.user}" name="username"/>
+		<property value="${database.password}" name="password"/>
+	</bean>
+
+<!-- Hibernate SessionFactory -->	
+	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" id="sessionFactory">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+			<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+			<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+			</props>
+		</property>
+		<property value="com.app.src.bean" name="packagesToScan"/>
+	</bean>
+
+<!-- Transaction -->
+	<bean class="org.springframework.orm.hibernate4.HibernateTransactionManager" id="transactionManager">
+	   <property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

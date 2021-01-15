@@ -1,0 +1,13 @@
+            .dd_menu {background:#161554eb; padding:0px; margin:0px;border:0px; list-style-type:none; height:30px;}
+            .dd_menu li {float:left; height:30px;}
+            .dd_menu li a {padding:9px 45px;display:block; color:#fff; text-decoration:none; font:18px arial, verdana, sans-serif; font-weight: bold;}
+            .dd_menu li:hover a {text-decoration:underline;}
+            .dd_menu ul {position:absolute; left:-9999px; top:-9999px; list-style-type:none;}
+            .dd_menu li:hover {position:relative; background:red;}
+            .dd_menu li:hover ul {position:relative;left:0px; top:0px;margin-top:0px; background:#CD9BFF; padding:0px; border:1px solid grey; width:158px;z-index: 1;}
+            .dd_menu li:hover ul li {height:18px; border:none;margin-top:0px;}
+            .dd_menu li:hover ul li a {height:18px; padding:0px;margin-top:0px; display:block; font-size:11px; width:168px; line-height:18px; text-indent:5px; color:purple; background-color:cornsilk; text-decoration:none; border:1px solid transparent;}
+            .dd_menu li:hover ul li a:hover {height:18px; background:silver; color:#000; border:solid 1px #444;}
+            #Categories{padding-left:20px;}
+
+     
